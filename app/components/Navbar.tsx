@@ -6,9 +6,12 @@ import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
 import { useState, useEffect } from "react";
 import { User } from "@supabase/supabase-js";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
   const supabase = createClient();
+  const router = useRouter();
+
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
@@ -31,6 +34,7 @@ export default function Navbar() {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
+    router.push("/");
   };
 
   return (
